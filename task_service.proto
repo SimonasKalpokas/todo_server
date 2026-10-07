@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option go_package = "github.com/SimonasKalpokas/todo_server/task_service_protos";
+
+service TaskService {
+  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {}
+  rpc GetTasks(GetTasksRequest) returns (GetTasksResponse) {}
+  rpc CompleteTask(CompleteTaskRequest) returns (CompleteTaskResponse) {}
+}
+
+enum TaskType {
+  TASK_TYPE_UNSPECIFIED = 0;
+  TASK_TYPE_CHECKED = 1;
+  TASK_TYPE_TIMED = 2;
+  TASK_TYPE_PARENT = 3;
+}
+
+enum Reoccurrence {
+  REOCCURRENCE_UNSPECIFIED = 0;
+  REOCCURRENCE_NOT_REPEATING = 1;
+  REOCCURRENCE_DAILY = 2;
+  REOCCURRENCE_WEEKLY = 3;
+}
+
+message CreateTaskRequest {
+  TaskType type = 1;
+  optional string parent_id = 2;
+  string name = 3;
+  string description = 4;
+  Reoccurrence reoccurrence = 5;
+}
+
+message CreateTaskResponse {
+}
+
+message CompleteTaskRequest {
+  string task_id = 1;
+}
+
+message CompleteTaskResponse {
+}
+
